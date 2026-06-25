@@ -69,14 +69,14 @@ After building, follow steps 3-6 from Option 1, selecting the generated `dist` f
 By default, Porter supports the following built-in fields:
 
 * Name
+* Email
+* Phone
+* Location
 * GitHub
 * LinkedIn
 * Portfolio
 * Twitter / X
 * Resume URL
-* Email
-* Phone
-* Location
 
 You can also add custom fields in the extension popup to support additional form inputs.
 
