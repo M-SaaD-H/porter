@@ -1,6 +1,14 @@
 import type { ScannedField, ClassifiedField, Profile } from './types';
 
 export const KEYWORD_MAP: Readonly<Record<string, readonly string[]>> = {
+  name: [
+    'name',
+    'full name',
+    'first name',
+    'last name',
+    'first and last name',
+    'fullname',
+  ],
   github: [
     'github',
     'github profile',
