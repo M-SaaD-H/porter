@@ -83,13 +83,10 @@ function normalizeLabel(label: string): string {
     .trim();
 }
 
-export function classifyLabel(label: string): string | null {
-  const normalized = normalizeLabel(label);
-  if (!normalized) return null;
-
+export function classifyLabel(normalizedLabel: string): string | null {
   for (const [category, keywords] of Object.entries(KEYWORD_MAP)) {
     for (const keyword of keywords) {
-      if (normalized.includes(keyword) || keyword.includes(normalized)) {
+      if (normalizedLabel.includes(keyword) || keyword.includes(normalizedLabel)) {
         return category;
       }
     }
@@ -103,23 +100,27 @@ export function classifyFields(
   profile: Profile,
 ): ClassifiedField[] {
   const profileIds = new Set(profile.map((f) => f.id));
-  // Fields with no KEYWORD_MAP entry are user-defined — fall back to label substring match
+  // Fields with no KEYWORD_MAP entry are user-defined
+  // Better than checking 'isPredefined' to eliminate any chance of error
   const customFields = profile.filter((f) => !KEYWORD_MAP[f.id]);
   const classified: ClassifiedField[] = [];
 
   for (const { element, label } of scannedFields) {
-    const category = classifyLabel(label);
+    const normalizedScannedLabel = normalizeLabel(label);
+    if (!normalizedScannedLabel) continue;
+
+    // Try to classify using KEYWORD_MAP (predefined labels)
+    const category = classifyLabel(normalizedScannedLabel);
     if (category && profileIds.has(category)) {
       classified.push({ element, category });
       continue;
     }
 
-    const normalizedLabel = normalizeLabel(label);
     for (const customField of customFields) {
       const normalizedCustomLabel = normalizeLabel(customField.label);
       if (!normalizedCustomLabel) continue;
 
-      if (normalizedLabel.includes(normalizedCustomLabel) || normalizedCustomLabel.includes(normalizedLabel)) {
+      if (normalizedScannedLabel.includes(normalizedCustomLabel) || normalizedCustomLabel.includes(normalizedScannedLabel)) {
         classified.push({ element, category: customField.id });
         break;
       }
