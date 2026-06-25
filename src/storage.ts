@@ -4,14 +4,14 @@ const STORAGE_KEY = 'porter_profile' as const;
 
 export const PREDEFINED_FIELDS: ReadonlyArray<ProfileField> = [
   { id: 'name',      label: 'Name',        value: '', isPredefined: true },
+  { id: 'email',     label: 'Email',       value: '', isPredefined: true },
+  { id: 'phone',     label: 'Phone',       value: '', isPredefined: true },
+  { id: 'location',  label: 'Location',    value: '', isPredefined: true },
   { id: 'github',    label: 'GitHub',      value: '', isPredefined: true },
   { id: 'linkedin',  label: 'LinkedIn',    value: '', isPredefined: true },
   { id: 'portfolio', label: 'Portfolio',   value: '', isPredefined: true },
   { id: 'twitter',   label: 'Twitter / X', value: '', isPredefined: true },
   { id: 'resume',    label: 'Resume URL',  value: '', isPredefined: true },
-  { id: 'email',     label: 'Email',       value: '', isPredefined: true },
-  { id: 'phone',     label: 'Phone',       value: '', isPredefined: true },
-  { id: 'location',  label: 'Location',    value: '', isPredefined: true },
 ] as const;
 
 const predefinedIds = new Set(PREDEFINED_FIELDS.map((f) => f.id));
