@@ -1,4 +1,3 @@
-import './popup.css';
 import type { Profile, ProfileField, FillAllResponse } from '../types';
 import { getProfile, saveProfile } from '../storage';
 
