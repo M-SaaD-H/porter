@@ -113,7 +113,16 @@ export function classifyFields(
   const customFields = profile.filter((f) => !KEYWORD_MAP[f.id]);
   const classified: ClassifiedField[] = [];
 
-  for (const { element, label } of scannedFields) {
+  for (const { element, label, autocomplete } of scannedFields) {
+    if (autocomplete) {
+      const normalizedAutocomplete = normalizeLabel(autocomplete);
+      const autocompleteCategory = classifyLabel(normalizedAutocomplete);
+      if (autocompleteCategory && profileIds.has(autocompleteCategory)) {
+        classified.push({ element, category: autocompleteCategory });
+        continue;
+      }
+    }
+
     const normalizedScannedLabel = normalizeLabel(label);
     if (!normalizedScannedLabel) continue;
 
