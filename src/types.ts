@@ -11,6 +11,7 @@ export type Profile = ProfileField[];
 export interface ScannedField {
   element: HTMLInputElement | HTMLTextAreaElement;
   label: string;
+  autocomplete?: string;
 }
 
 export interface ClassifiedField {

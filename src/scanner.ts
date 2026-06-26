@@ -82,10 +82,12 @@ export function scanInputs(): ScannedField[] {
       continue;
     }
 
+    const autocomplete = el.autocomplete || el.getAttribute('autocomplete') || undefined;
+    
     const label = extractLabel(el);
-    if (!label) continue;
+    if (!label && !autocomplete) continue;
 
-    results.push({ element: el, label });
+    results.push({ element: el, label, autocomplete });
   }
 
   return results;
